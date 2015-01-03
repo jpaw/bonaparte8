@@ -232,7 +232,9 @@
     <modules>
         <module>../bonaparte8-bom/pom.xml</module>
         <module>../bonaparte8-util/pom.xml</module>
+        <module>../bonaparte8-adapters-datetime/pom.xml</module>
         <module>../bonaparte8-batch/pom.xml</module>
+        <module>../bonaparte8-test/pom.xml</module>
     </modules>
 
 </project>
