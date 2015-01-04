@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>bonaparte8-base</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
     
     <description>build master for BONAPARTE based projects</description>
@@ -20,7 +20,7 @@
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>jpaw-bom</artifactId>
-                <version>1.2.0</version>
+                <version>1.2.1</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -34,7 +34,7 @@
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>bonaparte-bom</artifactId>
-                <version>3.2.1</version>
+                <version>3.2.2</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -44,7 +44,7 @@
 
     <properties>
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
-        <bonaparte-plugin.version>3.2.1</bonaparte-plugin.version>
+        <bonaparte-plugin.version>3.2.2</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
     </properties>
 
@@ -232,7 +232,9 @@
     <modules>
         <module>../bonaparte8-bom/pom.xml</module>
         <module>../bonaparte8-util/pom.xml</module>
+        <module>../bonaparte8-adapters-datetime/pom.xml</module>
         <module>../bonaparte8-batch/pom.xml</module>
+        <module>../bonaparte8-test/pom.xml</module>
     </modules>
 
 </project>

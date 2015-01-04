@@ -1,6 +1,5 @@
 package de.jpaw.bonaparte8.util.functions;
 
-import java.io.IOException;
 import java.util.function.Function;
 
 import de.jpaw.bonaparte.core.BonaPortable;
@@ -42,12 +41,7 @@ public class Bonaparte2String implements Function <BonaPortable,String> {
         if (writeRecords)
             composer.writeRecord(obj);
         else
-            try {
-                composer.addField(StaticMeta.OUTER_BONAPORTABLE, obj);
-            } catch (IOException e) {
-                // IOException writing to a String? Java, you're not serious!
-                throw new RuntimeException("Got an IOException from within StringBuilder, which should not happen, really!", e);
-            }
+            composer.addField(StaticMeta.OUTER_BONAPORTABLE, obj);
         return buff.toString();
     }
 

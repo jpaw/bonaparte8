@@ -8,6 +8,7 @@ import de.jpaw.bonaparte.core.MessageParserException;
 import de.jpaw.bonaparte.core.StaticMeta;
 
 public class Compact2Bonaparte<T extends BonaPortable> implements Function <byte [],T> {
+    private final CompactByteArrayParser parser = new CompactByteArrayParser(null, 0, 0);
     private final Class<T> classToExpect;
 
     public Compact2Bonaparte(Class<T> classToExpect) {
@@ -18,7 +19,7 @@ public class Compact2Bonaparte<T extends BonaPortable> implements Function <byte
     public T apply(byte [] t) {
         if (t == null || t.length == 0)
             return null;
-        CompactByteArrayParser parser = new CompactByteArrayParser(t, 0, t.length);
+        parser.setSource(t);
         try {
             return parser.readObject(StaticMeta.OUTER_BONAPORTABLE, classToExpect);
         } catch (MessageParserException e) {

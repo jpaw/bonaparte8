@@ -7,12 +7,13 @@ import de.jpaw.bonaparte.core.CompactByteArrayParser;
 import de.jpaw.bonaparte.core.MessageParserException;
 
 public class CompactRecord2Bonaparte implements Function <byte [],BonaPortable> {
+    private final CompactByteArrayParser parser = new CompactByteArrayParser(null, 0, 0);
 
     @Override
     public BonaPortable apply(byte [] t) {
         if (t == null || t.length == 0)
             return null;
-        CompactByteArrayParser parser = new CompactByteArrayParser(t, 0, t.length);
+        parser.setSource(t);
         try {
             return parser.readRecord();
         } catch (MessageParserException e) {
