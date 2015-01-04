@@ -11,7 +11,6 @@ import de.jpaw.util.StringSerializer;
 
 public class Java8TypesTest {
 
-    
     @Test
     public void testJava8Conversion() throws Exception {
         long millis = 98794375943L;
