@@ -21,7 +21,7 @@ public class LocalDateTimeAdapterSecond {
         int hour = secondsOfDay / 3600;
         int minute = (secondsOfDay - 3600 * hour) / 60;
         int second = secondsOfDay % 60;
-        int day = data.getDayOfYear();
+        int day = data.getDayOfMonth();
         int month = data.getMonthOfYear();
         int year = data.getYear();
         return java.time.LocalDateTime.of(year, month, day, hour, minute, second);
