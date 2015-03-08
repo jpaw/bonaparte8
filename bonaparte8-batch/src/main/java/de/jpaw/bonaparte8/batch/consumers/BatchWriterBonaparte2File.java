@@ -10,7 +10,7 @@ import de.jpaw8.batch.consumers.impl.BatchWriterFile;
  * It avoids some copying of data but may use more system calls. */
 public class BatchWriterBonaparte2File extends BatchWriterFile<BonaPortable> {
     private ByteArrayComposer bac = new ByteArrayComposer();    // share this across invocations
-    
+
     @Override
     public void store(BonaPortable response, int no) {
         bac.reset();

@@ -13,7 +13,7 @@ public class LocalDateTimeAdapterMilliSec {
         long secondOfEpoch = obj.toEpochSecond(ZoneOffset.UTC);
         return new LocalDateTime(secondOfEpoch * 1000L + (nanoOfSecond / 1_000_000L), DateTimeZone.UTC);
     }
-    
+
     public static java.time.LocalDateTime unmarshal(LocalDateTime data) {
         if (data == null)
             return null;

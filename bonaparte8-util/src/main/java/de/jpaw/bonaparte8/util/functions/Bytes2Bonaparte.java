@@ -15,11 +15,11 @@ public class Bytes2Bonaparte<T extends BonaPortable> implements Function <byte [
     public Bytes2Bonaparte(Class<T> classToExpect) {
         this.classToExpect = classToExpect;
     }
-    
+
     public void setCharset(Charset charset) {
         parser.setCharset(charset);
     }
-    
+
     @Override
     public T apply(byte [] t) {
         if (t == null || t.length == 0)
