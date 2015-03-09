@@ -14,7 +14,7 @@ public class Compact2Bonaparte<T extends BonaPortable> implements Function <byte
     public Compact2Bonaparte(Class<T> classToExpect) {
         this.classToExpect = classToExpect;
     }
-    
+
     @Override
     public T apply(byte [] t) {
         if (t == null || t.length == 0)

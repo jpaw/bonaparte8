@@ -7,7 +7,7 @@ import de.jpaw8.batch.consumers.impl.BatchWriterTextFileAbstract;
 public class BatchWriterBonaparteFile extends BatchWriterTextFileAbstract<BonaPortable> {
     private final StringBuilder buff = new StringBuilder(8000);
     private final StringBuilderComposer sbc = new StringBuilderComposer(buff);    // share this across invocations
-    
+
     @Override
     public void store(BonaPortable response, int no) {
         sbc.reset();

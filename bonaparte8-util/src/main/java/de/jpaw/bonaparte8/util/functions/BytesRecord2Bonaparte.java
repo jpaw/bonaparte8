@@ -8,7 +8,7 @@ import de.jpaw.bonaparte.core.MessageParserException;
 
 public class BytesRecord2Bonaparte implements Function <byte [], BonaPortable> {
     private final ByteArrayParser parser = new ByteArrayParser(null, 0, 0);
-    
+
     @Override
     public BonaPortable apply(byte [] t) {
         if (t == null || t.length == 0)

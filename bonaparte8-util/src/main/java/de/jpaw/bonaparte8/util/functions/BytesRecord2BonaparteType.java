@@ -14,7 +14,7 @@ public class BytesRecord2BonaparteType<T extends BonaPortable> implements Functi
     public BytesRecord2BonaparteType(Class<T> classToExpect) {
         this.classToExpect = classToExpect;
     }
-    
+
     public void setCharset(Charset charset) {
         parser.setCharset(charset);
     }

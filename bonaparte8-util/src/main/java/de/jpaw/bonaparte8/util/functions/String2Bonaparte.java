@@ -14,7 +14,7 @@ public class String2Bonaparte<T extends BonaPortable> implements Function <Strin
     public String2Bonaparte(Class<T> classToExpect) {
         this.classToExpect = classToExpect;
     }
-    
+
     @Override
     public T apply(String t) {
         if (t == null || t.length() == 0)

@@ -2,7 +2,7 @@ import adapters.datetime.*
 
 /** Jav 8 date / time type adapters.
  * Assigned to factoryId 26
- * 
+ *
  * see here: http://blog.joda.org/2014/11/converting-from-joda-time-to-javatime.html
  */
 

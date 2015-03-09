@@ -21,8 +21,8 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
     private final static int MAX_DIFFERENT_VALUES = 10;    // if reaching this number, we are no longer interested in the specific values
     private final ClassDefinition meta;
     private final String separator;
-    private final int [] fieldLengths; 
-    
+    private final int [] fieldLengths;
+
     private final int [] calculateLengths() {
         if (separator != null) {
             return null;
@@ -35,27 +35,27 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
             return lengths;
         }
     }
-    
+
     // separator must be non-null
     public AnalyzerWorkerFactory(String separator) {
         meta = null;
         this.separator = separator;
         fieldLengths = calculateLengths();
     }
-    
+
     // if separator is null, meta must be a class definition with only Alphanumeric fields.
     public AnalyzerWorkerFactory(ClassDefinition meta, String separator) {
         this.meta = meta;
         this.separator = separator;
         fieldLengths = calculateLengths();
     }
-    
+
     @Override
     public BatchWriter<String> get(int threadNo) {
         return new AnalyzerWorker(this);
     }
 
-    
+
     static private class Range {
         public int minVal = 999;
         public int maxVal = 0;
@@ -77,7 +77,7 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
             return String.format("[%3d,%3d]", minVal, maxVal);
         }
     }
-    
+
     static private class Statistics {
         public boolean optional = false;
         public boolean nonAscii = false;
@@ -92,7 +92,7 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
         public int maxDigitsBeforeDot = 0;
         public int maxDigitsAfterDot = 0;
         public SortedSet<String> values = new TreeSet<String>();
-        
+
         /** Merges a second statistics entry, which may have been computed in a parallel thread. */
         public void merge(Statistics other) {
             this.optional = this.optional || other.optional;
@@ -113,12 +113,12 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
                 this.values.addAll(other.values);
         }
     }
-    
+
     static private class AnalyzerWorker implements BatchWriter<String> {
         private final AnalyzerWorkerFactory myFactory;
         private Range numFields = new Range();
         private Statistics [] columnData = new Statistics[500];
-        
+
         public AnalyzerWorker(AnalyzerWorkerFactory myFactory) {
             this.myFactory = myFactory;
             for (int i = 0; i < 500; ++i)
@@ -139,7 +139,7 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
             s.len.upd(len);
             if (s.values.size() < MAX_DIFFERENT_VALUES)
                 s.values.add(w);
-            
+
             int dots = 0;
             int colons = 0;
             int slashes = 0;
@@ -188,7 +188,7 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
             if (digsAfterDot > s.maxDigitsAfterDot)
                 s.maxDigitsAfterDot = digsAfterDot;
         }
-        
+
         @Override
         public void store(String data, int recordNo) {
             // split the line
@@ -218,11 +218,11 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
             myFactory.merge(numFields, columnData);
         }
     }
-    
+
     private Range numFields = null;
     private Statistics [] columnData = null;
     private Integer mergeLock = new Integer(876511);
-    
+
     private void merge(Range numFields, Statistics [] columnData) {
         synchronized(mergeLock) {
             if (this.numFields == null) {
@@ -252,13 +252,13 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
                     b2a(s.optional), b2a(s.nonAscii), b2a(!s.nonDigit), b2a(!s.nonUpper), b2a(!s.nonLower),
                     s.len, s.dots, s.minusses, s.slashes, s.colons));
         }
-        
+
         if (meta != null) {
             guessBetterDescription();
         }
     }
 
-    
+
     private String b2a(boolean b) {
         return b ? "Y" : "N";
     }
@@ -267,7 +267,7 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
             return String.format("%d .. %d",  len.minVal, len.maxVal);
         return null;
     }
-    
+
     // return the max of the len found and the original len (if the field was an alphanumeric field)
     private int getLen(FieldDefinition fld, int myLen) {
         if (fld == null || !(fld instanceof AlphanumericElementaryDataItem))
@@ -275,7 +275,7 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
         AlphanumericElementaryDataItem afld = (AlphanumericElementaryDataItem)fld;
         return afld.getLength() > myLen ? afld.getLength() : myLen;
     }
-    
+
     private String listValues(SortedSet<String> samples) {
         if (samples.size() >= MAX_DIFFERENT_VALUES || samples.size() == 0)
             return "";  // makes no sense to list
@@ -284,7 +284,7 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
         // return "  // values = { " + String.join(s.values) + " }";  // needs Java 1.8
         return "  // values = { " + Joiner.on(", ").join(samples) + " }";  // guava
     }
-    
+
     private void guessBetterDescription() {
         System.out.println("    class " + meta.getName() + " {");
         for (int i = 0; i < numFields.maxVal; ++i) {
@@ -300,21 +300,21 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
                 type = String.format("Unicode(%d)", defLen);
                 comment = optionalLengthComment(s.len);
             } else if (s.minusses.maxVal > 0 || s.dots.maxVal > 0 || s.slashes.maxVal > 0 || s.colons.maxVal > 0) {
-                // signed number or date / timestamp? 
+                // signed number or date / timestamp?
                 if (!s.nonDigit) {
                     if (s.minusses.maxVal <= 1 && s.dots.maxVal <= 1 && s.slashes.maxVal == 0 && s.colons.maxVal == 0) {
                         // is a number
                         if (s.dots.maxVal > 0) {
                             type = String.format("%sDecimal(%d,%d)", s.minusses.maxVal > 0 ? "signed " : "",
                                     //s.maxDigitsBeforeDot + s.maxDigitsAfterDot,
-                                    getLen(fld, s.maxDigitsBeforeDot + s.maxDigitsAfterDot + 1 + s.minusses.maxVal) - 1 - s.minusses.maxVal,  // max possible digits minus decimal minus minus 
+                                    getLen(fld, s.maxDigitsBeforeDot + s.maxDigitsAfterDot + 1 + s.minusses.maxVal) - 1 - s.minusses.maxVal,  // max possible digits minus decimal minus minus
                                     s.maxDigitsAfterDot);
                         } else {
                             // int digits = s.maxDigitsBeforeDot;
                             int digits = getLen(fld, s.maxDigitsBeforeDot + s.minusses.maxVal) - s.minusses.maxVal;  // max possible digits minus minus
                             type = String.format("%s%s(%d)", s.minusses.maxVal > 0 ? "signed " : "",
                                     digits > 9 ? "Decimal" : "Number",  // use an int if possible, else a (Big)Decimal
-                                    digits 
+                                    digits
                                     );
                         }
                     } else if (s.len.maxVal <= 10) {
@@ -353,7 +353,7 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
                     comment == null ? "" : "// " + comment,
                     listValues(s.values)
                     ));
-        }            
+        }
         System.out.println("    }");
     }
 }

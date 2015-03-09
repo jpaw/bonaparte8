@@ -11,7 +11,7 @@ public class LocalDateTimeAdapterSecond {
     public static LocalDateTime marshal(java.time.LocalDateTime obj) {
         return new LocalDateTime(obj.toEpochSecond(ZoneOffset.UTC) * 1000, DateTimeZone.UTC);
     }
-    
+
     public static java.time.LocalDateTime unmarshal(LocalDateTime data) {
         if (data == null)
             return null;

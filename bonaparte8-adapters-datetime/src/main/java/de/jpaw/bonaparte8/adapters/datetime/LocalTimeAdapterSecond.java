@@ -9,7 +9,7 @@ public class LocalTimeAdapterSecond {
     public static LocalTime marshal(java.time.LocalTime obj) {
         return new LocalTime(obj.toSecondOfDay() * 1000L, DateTimeZone.UTC);
     }
-    
+
     public static java.time.LocalTime unmarshal(LocalTime data) {
         return data == null ? null : java.time.LocalTime.ofSecondOfDay(data.getMillisOfDay() / 1000);
     }

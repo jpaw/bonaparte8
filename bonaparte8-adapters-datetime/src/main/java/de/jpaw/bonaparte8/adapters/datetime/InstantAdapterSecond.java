@@ -9,7 +9,7 @@ public class InstantAdapterSecond {
         long epochMillis = obj.toEpochMilli();
         return new Instant(epochMillis - epochMillis % 1000L);
     }
-    
+
     public static java.time.Instant unmarshal(Instant data) {
         return data == null ? null : java.time.Instant.ofEpochSecond(data.getMillis() / 1000L);
     }
