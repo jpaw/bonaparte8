@@ -9,6 +9,7 @@ import de.jpaw.bonaparte.core.MessageParserException;
 import de.jpaw.bonaparte.core.ObjectValidationException;
 
 public class BonaPortableMessageCodec implements MessageCodec<BonaPortable, BonaPortable> {
+    public static final String BONAPORTABLE_MESSAGE_CODEC_ID = "bon";
 
     @Override
     public void encodeToWire(Buffer buffer, BonaPortable s) {
@@ -42,7 +43,7 @@ public class BonaPortableMessageCodec implements MessageCodec<BonaPortable, Bona
 
     @Override
     public String name() {
-        return "BonaPortableMessageCodec";
+        return BONAPORTABLE_MESSAGE_CODEC_ID;
     }
 
     @Override
