@@ -9,10 +9,10 @@
         <relativePath>../bonaparte8-base/pom.xml</relativePath>
     </parent>
 
-    <artifactId>bonaparte8-batch</artifactId>
+    <artifactId>bonaparte8-vertx3</artifactId>
     <packaging>jar</packaging>
 
-    <description>BONAPARTE batch processor (Java 8 API)</description>
+    <description>BONAPARTE message codec for vert.x 3</description>
 
     <dependencies>
         <dependency>
@@ -20,10 +20,11 @@
             <artifactId>bonaparte-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.jpaw</groupId>
-            <artifactId>jpaw8-batch</artifactId>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>${vertx3.version}</version>
         </dependency>
-
+        
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
