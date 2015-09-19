@@ -40,6 +40,11 @@
                 <artifactId>bonaparte8-vertx3</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>de.jpaw</groupId>
+                <artifactId>bonaparte8-aws-sqs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
