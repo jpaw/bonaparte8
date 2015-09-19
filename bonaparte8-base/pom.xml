@@ -224,7 +224,9 @@
                                         <versionRange>[${version.xtend},)</versionRange>
                                         <goals>
                                             <goal>compile</goal>
+                                            <goal>testCompile</goal>
                                             <goal>xtend-install-debug-info</goal>
+                                            <goal>xtend-test-install-debug-info</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
