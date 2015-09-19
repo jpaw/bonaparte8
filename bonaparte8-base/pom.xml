@@ -34,7 +34,7 @@
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>bonaparte-bom</artifactId>
-                <version>3.5.6-SNAPSHOT</version>
+                <version>3.5.7-SNAPSHOT</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -44,9 +44,10 @@
 
     <properties>
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
-        <bonaparte-plugin.version>3.5.6-SNAPSHOT</bonaparte-plugin.version>
+        <bonaparte-plugin.version>3.5.7-SNAPSHOT</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
         <vertx3.version>3.0.0</vertx3.version>
+        <aws.version>1.10.20</aws.version>
     </properties>
 
     <build>
