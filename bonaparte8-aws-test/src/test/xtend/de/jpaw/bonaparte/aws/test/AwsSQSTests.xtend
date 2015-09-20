@@ -7,6 +7,7 @@ import org.testng.annotations.Test
 
 import static extension org.testng.Assert.*
 import de.jpaw.bonaparte.sqs.BonaparteAwsSqsSink
+import com.amazonaws.services.sqs.model.ReceiveMessageRequest
 
 @Test
 class AwsSqsTest {
@@ -41,6 +42,26 @@ class AwsSqsTest {
 //        sendNObjects(100)
 //    }
     
+    
+    def public void testReceiveAllFromQueue() {
+        val delete = true
+        val client = createClient
+        client.endpoint = MY_ENDPOINT
+        val queueUrl = client.getQueueUrl(MY_QUEUE).queueUrl
+        for (;;) {
+            val receiveMessageRequest = new ReceiveMessageRequest(queueUrl)
+            val messages = client.receiveMessage(receiveMessageRequest).messages
+            if (messages.isNullOrEmpty)
+                return;
+            println('''***** Got «messages.size» messages *****''')
+            messages.forEach [
+                println('''message ID is «messageId», body is «body»''')
+                println('''Attributes are: «attributes.entrySet.map['''key=«key», value=«value»'''].join("; ")»''')
+                if (delete)
+                    client.deleteMessage(queueUrl, receiptHandle)
+            ]
+        }
+    }
     
     // default client: got queue URL https://sqs.us-east-1.amazonaws.com/777292991618/mydummy
     def public void testListQueues() {

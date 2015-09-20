@@ -32,6 +32,14 @@
             <artifactId>aws-java-sdk-s3</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sns</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-ses</artifactId>
+        </dependency>
+        <dependency>
             <groupId>de.jpaw</groupId>
             <artifactId>bonaparte-core</artifactId>
         </dependency>
