@@ -10,6 +10,11 @@ import org.testng.annotations.Test
 
 import static extension org.testng.Assert.*
 import com.amazonaws.services.s3.model.ListObjectsRequest
+import java.io.File
+import com.amazonaws.services.s3.model.PutObjectRequest
+import java.util.Date
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
+import com.amazonaws.HttpMethod
 
 @Test
 class AwsS3Test {
@@ -54,5 +59,37 @@ class AwsS3Test {
             contentType   = "application/bonaparte"
         ]
         s3client.putObject(MY_BUCKET, "AwsS3Test/S3upload-" + id, stream, meta);
+    }
+    
+    def public void testS3Bucket2() {
+        val s3client = createClient
+        s3client.createBucket("aroma-beo")
+    }
+    
+    static final String BEO_BUCKET = "aroma-beo";
+    static final String BEO_KEY = "iOS/beo.png";
+    
+    
+    def public void testS3FileUpload() {
+        val s3client = createClient
+        // s3client.createBucket("beo42")
+        val meta = new ObjectMetadata => [
+            contentType   = "image/png"
+        ]
+        s3client.putObject(new PutObjectRequest(BEO_BUCKET, BEO_KEY, new File("/tmp/beo.png")).withMetadata(meta));
+    }
+
+
+    def public void testS3CreatePreSignedUrl() {
+        val s3client = createClient
+        val myExpiration = new Date => [
+            time = time + 1000 * 60 * 60 * 24 * 7; // 1 week   
+        ]
+        val generatePresignedUrlRequest = new GeneratePresignedUrlRequest(BEO_BUCKET, BEO_KEY) => [
+            method = HttpMethod.GET
+            expiration = myExpiration
+        ]
+        val url = s3client.generatePresignedUrl(generatePresignedUrlRequest)
+        println('''Generated URL is «url»''')
     }
 }
