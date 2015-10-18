@@ -5,12 +5,12 @@
     <parent>
         <groupId>de.jpaw</groupId>
         <artifactId>jpaw-se-parent</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.7</version>
         <relativePath/>
     </parent>
 
     <artifactId>bonaparte8-base</artifactId>
-    <version>1.1.6</version>
+    <version>1.2.0</version>
     <packaging>pom</packaging>
     
     <description>build master for BONAPARTE based projects</description>
@@ -20,21 +20,21 @@
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>jpaw-bom</artifactId>
-                <version>1.2.11</version>
+                <version>1.2.12</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>jpaw8-bom</artifactId>
-                <version>1.1.3</version>
+                <version>1.1.4</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>bonaparte-bom</artifactId>
-                <version>3.5.7</version>
+                <version>3.6.0</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -44,25 +44,15 @@
 
     <properties>
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
-        <bonaparte-plugin.version>3.5.8</bonaparte-plugin.version>
+        <bonaparte-plugin.version>3.6.0</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
-        <vertx3.version>3.0.0</vertx3.version>
+        <vertx3.version>3.1.0</vertx3.version>
         <aws.version>1.10.20</aws.version>
     </properties>
 
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${compiler.plugin.version}</version>
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
