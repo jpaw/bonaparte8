@@ -7,7 +7,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import org.testng.annotations.Test
 
-class JWTTestRemote {
+class JwtTestRemote {
     static private final String BASE_URL = "http://localhost:8080"
     static private final int NUM_REQUESTS = 10000
     

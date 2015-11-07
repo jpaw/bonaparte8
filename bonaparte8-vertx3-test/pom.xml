@@ -21,6 +21,10 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>de.jpaw</groupId>
+            <artifactId>bonaparte-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-auth-jwt</artifactId>
             <version>${vertx3.version}</version>

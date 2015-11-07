@@ -10,7 +10,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(VertxUnitRunner)
-public class MyFirstVerticleTest {
+public class JwtRemoteTest {
 
     private Vertx vertx;
 
@@ -26,7 +26,7 @@ public class MyFirstVerticleTest {
     }
 
     @Test
-    def public void testMyApplication(TestContext context) {
+    def public void testSecuredService(TestContext context) {
         val async = context.async
 
         vertx.createHttpClient.getNow(8080, "localhost", "/login", [
