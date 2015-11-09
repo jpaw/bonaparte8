@@ -1,11 +1,9 @@
 package de.jpaw.bonaparte8.vertx.jwt.tests
 
-import de.jpaw.bonaparte.core.MapParser
-import de.jpaw.bonaparte.pojos.api.auth.Alg
-import de.jpaw.json.JsonParser
 import java.util.Base64
 import org.testng.annotations.Test
-import de.jpaw.bonaparte.pojos.api.auth.Jwt
+
+import static extension de.jpaw.bonaparte.api.JwtConverter.*
 
 class JwtTest {
     private static final String TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRJZCI6IkFDTUUiLCJ1c2VySWQiOiJqb2huIiwiaWF0IjoxNDQ2NzQ1NTk4LCJleHAiOjE0NDY3NDYxOTh9.x4V-9MYQIGYXn77axbc_BaE4Ry98F1osB_Ed4sNHv9M="
@@ -21,8 +19,8 @@ class JwtTest {
         println('''Length of sig bytes is «bytes.get(2).length»''')
         
         // convert alg and payload into object
-        val alg = MapParser.asBonaPortable(new JsonParser(algStr, true).parseObject, Alg.meta$$this)
-        val payload = MapParser.asBonaPortable(new JsonParser(payloadStr, true).parseObject, Jwt.meta$$payload)
+        val alg = algStr.parseAlg
+        val payload = payloadStr.parsePayload
         
         println('''Alg is «alg»''')
         println('''Payload is «payload»''')
