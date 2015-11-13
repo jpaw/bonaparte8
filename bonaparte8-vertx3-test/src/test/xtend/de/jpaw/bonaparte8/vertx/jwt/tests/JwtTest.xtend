@@ -3,7 +3,7 @@ package de.jpaw.bonaparte8.vertx.jwt.tests
 import java.util.Base64
 import org.testng.annotations.Test
 
-import static extension de.jpaw.bonaparte.api.JwtConverter.*
+import static extension de.jpaw.bonaparte.api.auth.JwtConverter.*
 
 class JwtTest {
     private static final String TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRJZCI6IkFDTUUiLCJ1c2VySWQiOiJqb2huIiwiaWF0IjoxNDQ2NzQ1NTk4LCJleHAiOjE0NDY3NDYxOTh9.x4V-9MYQIGYXn77axbc_BaE4Ry98F1osB_Ed4sNHv9M="

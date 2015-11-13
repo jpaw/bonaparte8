@@ -25,6 +25,10 @@
             <artifactId>bonaparte-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>de.jpaw</groupId>
+            <artifactId>bonaparte-api-auth</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-auth-jwt</artifactId>
             <version>${vertx3.version}</version>
