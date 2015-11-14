@@ -45,17 +45,31 @@ class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
         return jwt.sign(new JsonObject(jwtMap), options)
     }
     
+    // overridable auth methods. null means no supported format, true = authenticated, false = rejected
+    def protected void authenticate(RoutingContext ctx, String authorizationHeader) {
+        LOGGER.debug("unsupported authentication method");
+        ctx.response.statusMessage = "unsupported authentication method"
+        ctx.fail(403)
+    }
+    
     override handle(RoutingContext ctx) {
+        if (ctx.user !== null) {
+            // probably a session handler has been used
+            LOGGER.debug("user exists; seems to be authenticated already")
+            ctx.next
+            return
+        }
         val authorizationHeader = ctx.request.headers.get(AUTHORIZATION)
         if (authorizationHeader === null) {
             ctx.response.statusMessage = "No Authorization http Header"
             ctx.fail(401)
             return
         }
-        LOGGER.info("authenticating header field {}", authorizationHeader)
+        LOGGER.debug("authenticating header field {}", authorizationHeader)
         var String reasonOfFailureMsg = null
         if (!authorizationHeader.startsWith("Bearer ")) {
-            reasonOfFailureMsg = "Header must start with keyword 'Bearer'"
+            ctx.authenticate(authorizationHeader)
+            return
         } else {
             try {
                 val jwtToken = authorizationHeader.substring(7).trim
@@ -80,7 +94,7 @@ class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
                 reasonOfFailureMsg = "Failed to decode http header Authorization JWT"
             }
         }
-        LOGGER.info("authentication fails: {}", reasonOfFailureMsg)
+        LOGGER.debug("authentication fails: {}", reasonOfFailureMsg)
         // ctx.response.statusCode = 403
         ctx.response.statusMessage = reasonOfFailureMsg
         ctx.fail(403)

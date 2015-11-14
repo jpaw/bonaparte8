@@ -42,6 +42,11 @@
             </dependency>
             <dependency>
                 <groupId>de.jpaw</groupId>
+                <artifactId>bonaparte8-vertx3-auth</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.jpaw</groupId>
                 <artifactId>bonaparte8-vertx3-test</artifactId>
                 <version>${project.version}</version>
             </dependency>

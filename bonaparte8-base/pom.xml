@@ -273,6 +273,7 @@
         <module>../bonaparte8-util/pom.xml</module>
         <module>../bonaparte8-aws-sqs/pom.xml</module>
         <module>../bonaparte8-vertx3/pom.xml</module>
+        <module>../bonaparte8-vertx3-auth/pom.xml</module>
         <module>../bonaparte8-vertx3-test/pom.xml</module>
         <module>../bonaparte8-adapters-datetime/pom.xml</module>
         <module>../bonaparte8-batch/pom.xml</module>
