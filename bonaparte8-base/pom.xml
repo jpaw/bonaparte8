@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>bonaparte8-base</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <packaging>pom</packaging>
     
     <description>build master for BONAPARTE based projects</description>
@@ -20,21 +20,21 @@
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>jpaw-bom</artifactId>
-                <version>1.2.12</version>
+                <version>1.2.13</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>jpaw8-bom</artifactId>
-                <version>1.1.4</version>
+                <version>1.1.5</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>bonaparte-bom</artifactId>
-                <version>3.6.0</version>
+                <version>3.7.0</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -44,10 +44,10 @@
 
     <properties>
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
-        <bonaparte-plugin.version>3.6.0</bonaparte-plugin.version>
+        <bonaparte-plugin.version>3.7.0</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
         <vertx3.version>3.1.0</vertx3.version>
-        <aws.version>1.10.20</aws.version>
+        <aws.version>1.10.32</aws.version>
     </properties>
 
     <build>
@@ -273,6 +273,8 @@
         <module>../bonaparte8-util/pom.xml</module>
         <module>../bonaparte8-aws-sqs/pom.xml</module>
         <module>../bonaparte8-vertx3/pom.xml</module>
+        <module>../bonaparte8-vertx3-auth/pom.xml</module>
+        <module>../bonaparte8-vertx3-test/pom.xml</module>
         <module>../bonaparte8-adapters-datetime/pom.xml</module>
         <module>../bonaparte8-batch/pom.xml</module>
         <module>../bonaparte8-test/pom.xml</module>

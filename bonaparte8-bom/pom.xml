@@ -4,7 +4,7 @@
     <parent>
         <groupId>de.jpaw</groupId>
         <artifactId>bonaparte8-base</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.1</version>
         <relativePath>../bonaparte8-base/pom.xml</relativePath>
     </parent>
 
@@ -38,6 +38,16 @@
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>bonaparte8-vertx3</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.jpaw</groupId>
+                <artifactId>bonaparte8-vertx3-auth</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.jpaw</groupId>
+                <artifactId>bonaparte8-vertx3-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
