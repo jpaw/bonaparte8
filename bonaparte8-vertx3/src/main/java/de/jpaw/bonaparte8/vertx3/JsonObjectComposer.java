@@ -5,6 +5,7 @@ import io.vertx.core.json.JsonObject;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -378,6 +379,18 @@ public class JsonObjectComposer extends AbstractMessageComposer<RuntimeException
         }
     }
 
+    @Override
+    public void addField(ObjectReference di, List<Object> o) throws RuntimeException {
+        if (o == null) {
+            writeNull(di);
+        } else {
+            if (inArray)
+                arr.add(new JsonArray(o));
+            else
+                obj.put(di.getName(), new JsonArray(o));
+        }
+    }
+    
     @Override
     public void addField(ObjectReference di, Object o) {
         if (o == null) {
