@@ -9,39 +9,47 @@ import de.jpaw.bonaparte8.vertx3.IMessageDecoder;
 import de.jpaw.bonaparte8.vertx3.IMessageEncoder;
 
 
-public class SingleThreadCachingMessageCoderFactory<O extends BonaPortable> implements IMessageCoderFactory<O, byte []> {
-    private final Map<String,IMessageDecoder<O,byte []>> decoders = new HashMap<String,IMessageDecoder<O,byte []>>(10);
-    private final Map<String,IMessageEncoder<O,byte []>> encoders = new HashMap<String,IMessageEncoder<O,byte []>>(10);
+public class SingleThreadCachingMessageCoderFactory<D extends BonaPortable, E extends BonaPortable> implements IMessageCoderFactory<D, E, byte []> {
+    private final Map<String,IMessageDecoder<D, byte []>> decoders = new HashMap<String,IMessageDecoder<D, byte []>>(10);
+    private final Map<String,IMessageEncoder<E, byte []>> encoders = new HashMap<String,IMessageEncoder<E, byte []>>(10);
+    
+    private final Class<D> decoderClass;
+    private final Class<E> encoderClass;
+    
+    public SingleThreadCachingMessageCoderFactory(Class<D> decoderClass, Class<E> encoderClass) {
+        this.decoderClass = decoderClass;
+        this.encoderClass = encoderClass;
+    }
     
     // override to add additional methods
-    protected IMessageEncoder<O, byte []> createNewEncoderInstance(String mimeType) {
+    protected IMessageEncoder<E, byte []> createNewEncoderInstance(String mimeType) {
         switch (mimeType) {
         case "application/bonaparte":
-            return new BonaparteEncoder<O>();
+            return new BonaparteEncoder<E>();
         case "application/cbon":
-            return new CompactBonaparteEncoder<O>();
+            return new CompactBonaparteEncoder<E>();
         case "application/json":
-            return new JsonEncoder<O>();
+            return new JsonEncoder<E>();
         }
         return null;
     }
     
     // override to add additional methods
-    protected IMessageDecoder<O, byte []> createNewDecoderInstance(String mimeType) {
+    protected IMessageDecoder<D, byte []> createNewDecoderInstance(String mimeType) {
         switch (mimeType) {
         case "application/bonaparte":
-            return new BonaparteDecoder<O>();
+            return new BonaparteDecoder<D>(decoderClass);
         case "application/cbon":
-            return new CompactBonaparteDecoder<O>();
+            return new CompactBonaparteDecoder<D>(decoderClass);
         case "application/json":
-            return new JsonDecoder<O>();
+            return new JsonDecoder<D>();
         }
         return null;
     }
     
     @Override
-    public final IMessageEncoder<O, byte []> getEncoderInstance(String mimeType) {
-        IMessageEncoder<O,byte []> encoder = encoders.get(mimeType);
+    public final IMessageEncoder<E, byte []> getEncoderInstance(String mimeType) {
+        IMessageEncoder<E, byte []> encoder = encoders.get(mimeType);
         if (encoder != null)
             return encoder;
         encoder = createNewEncoderInstance(mimeType);
@@ -51,8 +59,8 @@ public class SingleThreadCachingMessageCoderFactory<O extends BonaPortable> impl
     }
 
     @Override
-    public IMessageDecoder<O, byte []> getDecoderInstance(String mimeType) {
-        IMessageDecoder<O,byte []> decoder = decoders.get(mimeType);
+    public IMessageDecoder<D, byte []> getDecoderInstance(String mimeType) {
+        IMessageDecoder<D, byte []> decoder = decoders.get(mimeType);
         if (decoder != null)
             return decoder;
         decoder = createNewDecoderInstance(mimeType);
@@ -60,5 +68,4 @@ public class SingleThreadCachingMessageCoderFactory<O extends BonaPortable> impl
             decoders.put(mimeType, decoder);
         return decoder;
     }
-
 }
