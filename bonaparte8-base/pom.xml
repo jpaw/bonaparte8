@@ -47,7 +47,7 @@
         <bonaparte-plugin.version>3.7.2-SNAPSHOT</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
         <vertx3.version>3.1.0</vertx3.version>
-        <aws.version>1.10.35</aws.version>
+        <aws.version>1.10.37</aws.version>
     </properties>
 
     <build>
