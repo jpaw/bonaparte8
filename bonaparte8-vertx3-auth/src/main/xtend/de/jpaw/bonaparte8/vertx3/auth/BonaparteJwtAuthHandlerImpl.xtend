@@ -16,16 +16,21 @@ import org.slf4j.LoggerFactory
 
 import static io.vertx.core.http.HttpHeaders.*
 import de.jpaw.bonaparte8.vertx3.auth.BonaparteVertxUser
+import java.io.InputStream
+import java.io.FileNotFoundException
 
 // BonaparteJwtAuthHandler does not implement an AuthHandler, because that one requires a SessionHandler!
 class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
     private static final Logger LOGGER = LoggerFactory.getLogger(BonaparteJwtAuthHandlerImpl)
     private JWT jwt = null
 
-    public new(File keyStore, String password) {
+    public new(File keyStore, String password) throws FileNotFoundException {
+        this(new FileInputStream(keyStore), password)
+    }
+    
+    public new(InputStream in, String password) {
         try {
             val ks = KeyStore.getInstance("jceks")
-            val in = new FileInputStream(keyStore)
             ks.load(in, password.toCharArray())
             in.close
 

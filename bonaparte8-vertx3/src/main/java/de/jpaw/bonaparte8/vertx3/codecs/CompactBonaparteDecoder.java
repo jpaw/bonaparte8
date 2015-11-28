@@ -8,9 +8,15 @@ import de.jpaw.bonaparte8.vertx3.IMessageDecoder;
 
 public class CompactBonaparteDecoder<O extends BonaPortable> implements IMessageDecoder<O, byte []> {
     
+    private final Class<O> decoderClass;
+    
+    public CompactBonaparteDecoder(Class<O> decoderClass) {
+        this.decoderClass = decoderClass;
+    }
+    
     @Override
     public O decode(byte [] data, ObjectReference di) throws MessageParserException {
         final CompactByteArrayParser cbap = new CompactByteArrayParser(data, 0, -1);
-        return (O) cbap.readObject(di, BonaPortable.class);
+        return cbap.readObject(di, decoderClass);
     }
 }
