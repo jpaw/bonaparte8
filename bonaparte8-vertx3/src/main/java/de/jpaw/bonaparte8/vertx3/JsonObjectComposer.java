@@ -18,6 +18,7 @@ import org.joda.time.format.ISODateTimeFormat;
 
 import de.jpaw.bonaparte.core.AbstractMessageComposer;
 import de.jpaw.bonaparte.core.BonaCustom;
+import de.jpaw.bonaparte.core.MimeTypes;
 import de.jpaw.bonaparte.core.StaticMeta;
 import de.jpaw.bonaparte.enums.BonaNonTokenizableEnum;
 import de.jpaw.bonaparte.enums.BonaTokenizableEnum;
@@ -98,7 +99,7 @@ public class JsonObjectComposer extends AbstractMessageComposer<RuntimeException
     @Override
     public void startObject(ObjectReference di, BonaCustom o) {
         obj = new JsonObject();
-        obj.put("_PQON", o.ret$PQON());  // insert the actual object type
+        obj.put(MimeTypes.JSON_FIELD_PQON, o.ret$PQON());  // insert the actual object type
     }
 
     @Override
