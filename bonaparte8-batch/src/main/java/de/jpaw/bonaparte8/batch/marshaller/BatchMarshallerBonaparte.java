@@ -5,14 +5,14 @@ import java.io.OutputStream;
 import de.jpaw.bonaparte.core.BonaPortable;
 import de.jpaw.bonaparte.core.ByteArrayComposer;
 import de.jpaw.bonaparte.core.ByteArrayParser;
+import de.jpaw.bonaparte.core.MimeTypes;
 import de.jpaw8.batch.api.BatchMarshaller;
 
 public class BatchMarshallerBonaparte implements BatchMarshaller<BonaPortable> {
-    private static final String MEDIA_TYPE = "application/bonaparte";
 
     @Override
     public String getContentType() {
-        return MEDIA_TYPE;
+        return MimeTypes.MIME_TYPE_BONAPARTE;
     }
 
     @Override
