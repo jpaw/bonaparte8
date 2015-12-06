@@ -15,6 +15,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest
 import java.util.Date
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
 import com.amazonaws.HttpMethod
+import de.jpaw.bonaparte.core.MimeTypes
 
 @Test
 class AwsS3Test {
@@ -56,7 +57,7 @@ class AwsS3Test {
         val stream = new ByteArrayInputStream(binaryData)
         val meta = new ObjectMetadata => [
             contentLength = binaryData.length
-            contentType   = "application/bonaparte"
+            contentType   = MimeTypes.MIME_TYPE_BONAPARTE
         ]
         s3client.putObject(MY_BUCKET, "AwsS3Test/S3upload-" + id, stream, meta);
     }
