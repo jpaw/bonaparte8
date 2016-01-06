@@ -55,7 +55,7 @@ public class SecuredService extends AbstractVerticle {
                     put("tenantId", "ACME")
                     put("userId",   "john")
                 ], new JWTOptions => [
-                    expiresInMinutes = 10 
+                    expiresInMinutes = 10L 
                 ]));
             ]
         ]
