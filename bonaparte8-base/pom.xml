@@ -49,7 +49,7 @@
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
         <bonaparte-plugin.version>4.0.8-SNAPSHOT</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
-        <vertx3.version>3.2.0</vertx3.version>
+        <vertx3.version>3.2.1</vertx3.version>
         <aws.version>1.10.41</aws.version>
     </properties>
 
