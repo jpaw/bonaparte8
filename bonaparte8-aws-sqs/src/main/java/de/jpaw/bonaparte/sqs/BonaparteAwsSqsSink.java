@@ -38,7 +38,7 @@ public class BonaparteAwsSqsSink {
         cbac.reset();
         cbac.writeRecord(obj);
         // push the data to the queue. It must be base64 encoded, because SQS cannot deal with characters like ctrl-A
-        String data = Base64.getEncoder().encodeToString(buffer.getBytes());  // Encoder is really missing a method to encode a buffer delimited by length. This would avoid an object construction / array copy. 
+        String data = Base64.getEncoder().encodeToString(buffer.getBytes());  // Encoder is really missing a method to encode a buffer delimited by length. This would avoid an object construction / array copy.
         s3client.sendMessage(queueName, data);
         cbac.reset();
     }

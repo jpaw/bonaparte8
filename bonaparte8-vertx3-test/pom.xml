@@ -43,7 +43,7 @@
             <artifactId>org.eclipse.xtend.lib</artifactId>
             <version>${xtend.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -56,7 +56,7 @@
             <version>${logback.version}</version>
             <scope>runtime</scope>
         </dependency>
-    
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

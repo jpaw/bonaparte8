@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <description>Bonaparte Java 8 extensions bill of materials</description>
- 
+
     <dependencyManagement>
         <dependencies>
             <dependency>

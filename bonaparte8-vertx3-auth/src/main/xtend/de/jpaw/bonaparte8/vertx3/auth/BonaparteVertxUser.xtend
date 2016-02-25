@@ -11,7 +11,7 @@ public class BonaparteVertxUser implements User {
     private final String jwtToken;          // encoded form, without "Bearer" prefix
     private final JwtInfo info;             // decoded data in map form
     private final JsonObject principal;     // token + decoded map
-    
+
     public new (String jwtToken, JwtInfo info) {
         this.jwtToken = jwtToken;
         this.info = info
@@ -19,15 +19,15 @@ public class BonaparteVertxUser implements User {
     }
     override clearCache() {
     }
-    
+
     override principal() {
         return principal;
     }
-    
+
     override isAuthorised(String authority, Handler<AsyncResult<Boolean>> resultHandler) {
         throw new UnsupportedOperationException("TODO: auto-generated method stub")
     }
-    
+
     override setAuthProvider(AuthProvider authProvider) {
         throw new UnsupportedOperationException("TODO: auto-generated method stub")
     }

@@ -16,7 +16,7 @@ public class EventBusCodecBench {
     static public boolean publish = true;       // false = send.   6 seconds for publish
     static public EventBusTest ECHO2PING = new EventBusTest("X", 97, null);
     static public EventBusTest PING2ECHO = new EventBusTest("hello", 42, null);
-    
+
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
 //        Vertx vertx = Vertx.vertx();

@@ -11,7 +11,7 @@ import org.testng.annotations.Test
 class CurrencyTest {
 
     def public void testHttp() {
-        
+
         val String body1 = '''
 <?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

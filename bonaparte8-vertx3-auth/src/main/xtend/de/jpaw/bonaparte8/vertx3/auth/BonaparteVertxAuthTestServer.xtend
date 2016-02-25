@@ -16,19 +16,19 @@ import static io.vertx.core.http.HttpHeaders.*
 
 public class BonaparteVertxAuthTestServer extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(BonaparteVertxAuthTestServer)
-        
+
     def static void error(RoutingContext it, int errorCode) {
         response.statusCode = errorCode
         response.end
     }
-    
-    
+
+
     def void rpcHandler(RoutingContext it) {
         LOGGER.info('''POST /rpc received...''')
 
         val info = user?.principal?.map?.get("info")
         if (info === null || !(info instanceof JwtInfo)) {
-            throw new RuntimeException("No user defined or of bad type: Missing auth handler?") 
+            throw new RuntimeException("No user defined or of bad type: Missing auth handler?")
         }
         val info2 = info as JwtInfo
         val ct = request.headers.get(CONTENT_TYPE)
@@ -41,11 +41,11 @@ public class BonaparteVertxAuthTestServer extends AbstractVerticle {
         LOGGER.info("Processed request {} for tenant {}", body.toString, info2.tenantId)
         response.end(Buffer.buffer(resp))
     }
-    
+
     // doc on key store:  http://vertx.io/docs/vertx-auth-jwt/js/
     override void start() {
         super.start
-        val authHandler = new BonaparteJwtAuthHandlerImpl((vertx as VertxInternal).resolveFile("/tmp/mykeystore.jceks"), "xyzzy5") 
+        val authHandler = new BonaparteJwtAuthHandlerImpl((vertx as VertxInternal).resolveFile("/tmp/mykeystore.jceks"), "xyzzy5")
         LOGGER.info("Auth test server verticle started")
         val router = Router.router(vertx) => [
             // login path
@@ -68,11 +68,11 @@ public class BonaparteVertxAuthTestServer extends AbstractVerticle {
             listen(8080)
         ]
     }
-    
-    
+
+
     def static void main(String[] args) throws Exception {
         Vertx.vertx.deployVerticle(new BonaparteVertxAuthTestServer)
 
         new Thread([Thread.sleep(100000)]).start // wait in some other thread
     }
-}     
+}

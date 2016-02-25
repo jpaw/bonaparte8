@@ -12,15 +12,15 @@
     <artifactId>bonaparte8-base</artifactId>
     <version>2.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <description>build master for BONAPARTE based projects</description>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>jpaw-bom</artifactId>
-                <version>1.5.4-SNAPSHOT</version>
+                <version>1.5.5-SNAPSHOT</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -40,12 +40,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-  
+
 
     <properties>
         <!-- override definition in jpaw-se-parent -->
         <xtend.version>2.9.1</xtend.version>            <!-- UPTODATE 2015-12-31 -->
-        
+
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
         <bonaparte-plugin.version>4.0.8-SNAPSHOT</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->

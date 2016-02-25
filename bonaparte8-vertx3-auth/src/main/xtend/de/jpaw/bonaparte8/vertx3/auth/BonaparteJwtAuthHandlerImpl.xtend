@@ -27,7 +27,7 @@ class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
     public new(File keyStore, String password) throws FileNotFoundException {
         this(new FileInputStream(keyStore), password)
     }
-    
+
     public new(InputStream in, String password) {
         try {
             val ks = KeyStore.getInstance("jceks")
@@ -39,24 +39,24 @@ class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
             throw new RuntimeException(e);
         }
     }
-    
+
     def public String sign(JwtInfo claims, Long expiresInSeconds, String algorithm) {
         val options = new JsonObject
         if (expiresInSeconds !== null)
             options.put("expiresInSeconds", expiresInSeconds)
         if (algorithm !== null)
             options.put("algorithm", algorithm)
-        val jwtMap = JwtConverter.asMap(claims);     
+        val jwtMap = JwtConverter.asMap(claims);
         return jwt.sign(new JsonObject(jwtMap), options)
     }
-    
+
     // overridable auth methods. null means no supported format, true = authenticated, false = rejected
     def protected void authenticate(RoutingContext ctx, String authorizationHeader) {
         LOGGER.debug("unsupported authentication method");
         ctx.response.statusMessage = "unsupported authentication method"
         ctx.fail(403)
     }
-    
+
     override handle(RoutingContext ctx) {
         if (ctx.user !== null) {
             // probably a session handler has been used

@@ -24,7 +24,7 @@
             <artifactId>vertx-core</artifactId>
             <version>${vertx3.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>

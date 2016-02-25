@@ -37,10 +37,10 @@ public class JwtRemoteTest {
                     println('''Result: token = «it»''')
                     async.complete
                 ]
-            ])  
+            ])
         ]
     }
-    
+
     @Test
     def public void testAuthServerNoAuth(TestContext context) {
         val async = context.async
@@ -49,17 +49,17 @@ public class JwtRemoteTest {
             post(8080, "localhost", "/rpc", [
                 println('''returns «statusCode» with msg «statusMessage»''')
                 if (statusCode == 200)
-                    endHandler [ 
+                    endHandler [
                         println('''Result: token = «it»''')
                         async.complete
                     ]
                 else
                     async.complete
             ])
-            .end  
+            .end
         ]
     }
-    
+
     @Test
     def public void testAuthServerBadAuth(TestContext context) {
         val async = context.async
@@ -68,7 +68,7 @@ public class JwtRemoteTest {
             post(8080, "localhost", "/rpc", [
                 println('''returns «statusCode» with msg «statusMessage»''')
                 if (statusCode == 200)
-                    endHandler [ 
+                    endHandler [
                         println('''Result: token = «it»''')
                         async.complete
                     ]
@@ -76,10 +76,10 @@ public class JwtRemoteTest {
                     async.complete
             ])
             .putHeader(HttpHeaders.AUTHORIZATION, "ghghghgh.ggg.ggg")
-            .end  
+            .end
         ]
     }
-    
+
     @Test
     def public void testAuthServerBadAuth2(TestContext context) {
         val async = context.async
@@ -88,7 +88,7 @@ public class JwtRemoteTest {
             post(8080, "localhost", "/rpc", [
                 println('''returns «statusCode» with msg «statusMessage»''')
                 if (statusCode == 200)
-                    endHandler [ 
+                    endHandler [
                         println('''Result: token = «it»''')
                         async.complete
                     ]
@@ -96,10 +96,10 @@ public class JwtRemoteTest {
                     async.complete
             ])
             .putHeader(HttpHeaders.AUTHORIZATION, "Bearer ghghghgh.ggg.ggg")
-            .end  
+            .end
         ]
     }
-    
+
     @Test
     def public void testAuthServerGoodAuth(TestContext context) {
         val async = context.async
@@ -111,7 +111,7 @@ public class JwtRemoteTest {
                 clt.post(8080, "localhost", "/rpc", [
                     println('''returns «statusCode» with msg «statusMessage»''')
                     if (statusCode == 200)
-                        bodyHandler [ 
+                        bodyHandler [
                             println('''Result: token = «it»''')
                             async.complete
                         ]
@@ -120,7 +120,7 @@ public class JwtRemoteTest {
                 ])
                 .putHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
                 .putHeader(HttpHeaders.CONTENT_TYPE, "application/json")
-                .end('''{ "foo": "bar" }''')  
+                .end('''{ "foo": "bar" }''')
             ]
         ])
     }
