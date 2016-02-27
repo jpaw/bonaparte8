@@ -18,9 +18,11 @@ import static io.vertx.core.http.HttpHeaders.*
 import de.jpaw.bonaparte8.vertx3.auth.BonaparteVertxUser
 import java.io.InputStream
 import java.io.FileNotFoundException
+import de.jpaw.bonaparte.core.MimeTypes
 
 // BonaparteJwtAuthHandler does not implement an AuthHandler, because that one requires a SessionHandler!
 class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
+    private static final String PAYLOAD_PQON = JwtPayload.BClass.INSTANCE.getPqon();
     private static final Logger LOGGER = LoggerFactory.getLogger(BonaparteJwtAuthHandlerImpl)
     private JWT jwt = null
 
@@ -78,8 +80,14 @@ class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
         } else {
             try {
                 val jwtToken = authorizationHeader.substring(7).trim
-                val r = jwt.decode(jwtToken)
-                val info = JwtConverter.parseJwtInfo(MapParser.asBonaPortable(r.map, JwtPayload.meta$$this) as JwtPayload)
+                val map = jwt.decode(jwtToken).map
+                // if no object type has been specified, provide the default type to avoid a warning, unless fqon or pqon is specified
+                val pqon1 = map.get(MimeTypes.JSON_FIELD_PQON);
+                val pqon2 = map.get(MimeTypes.JSON_FIELD_FQON);
+                if (!((pqon1 !== null && pqon1 instanceof String) || (pqon2 !== null && pqon2 instanceof String)))
+                    map.put(MimeTypes.JSON_FIELD_PQON, PAYLOAD_PQON);
+
+                val info = JwtConverter.parseJwtInfo(MapParser.asBonaPortable(map, JwtPayload.meta$$this) as JwtPayload)
                 val now = System.currentTimeMillis
                 if (info.issuedAt !== null && info.issuedAt.isAfter(now)) {
                     reasonOfFailureMsg = '''JWT token pretends to be issued in the future by «info.issuedAt.millis - now» ms'''
