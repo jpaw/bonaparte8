@@ -229,7 +229,7 @@ public class JsonObjectComposer extends AbstractMessageComposer<RuntimeException
         else
             obj.put(di.getName(), n);
     }
-    
+
     protected void writeNonNull(FieldDefinition di, String s) {
         if (inArray)
             arr.add(s);
@@ -391,7 +391,7 @@ public class JsonObjectComposer extends AbstractMessageComposer<RuntimeException
                 obj.put(di.getName(), new JsonArray(o));
         }
     }
-    
+
     @Override
     public void addField(ObjectReference di, Object o) {
         if (o == null) {

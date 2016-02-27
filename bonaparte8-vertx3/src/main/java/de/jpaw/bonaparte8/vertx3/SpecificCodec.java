@@ -58,7 +58,7 @@ public class SpecificCodec<T extends BonaPortable> implements MessageCodec<T, T>
     public byte systemCodecID() {
         return (byte)-1;
     }
-    
-    
-    
+
+
+
 }

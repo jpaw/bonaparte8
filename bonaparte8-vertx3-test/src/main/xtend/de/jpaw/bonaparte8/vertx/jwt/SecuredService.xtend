@@ -20,12 +20,12 @@ import org.slf4j.LoggerFactory
 public class SecuredService extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecuredService)
     private static int port = 8080
-    
-    
+
+
     // doc on key store:  http://vertx.io/docs/vertx-auth-jwt/js/
     override void start() {
         super.start
-        
+
         // Create a JWT Auth Provider
         val jwt = JWTAuth.create(vertx, new JsonObject()
             .put("keyStore", new JsonObject()
@@ -38,7 +38,7 @@ public class SecuredService extends AbstractVerticle {
         val router = Router.router(vertx) => [
             // protect the API
             route("/api/*").handler(JWTAuthHandler.create(jwt, null));  // no exclude path because login will be separate
-            
+
             // define protected services
             get("/api/bench").handler [ response.end ]
             get("/api/currencies").handler [
@@ -47,7 +47,7 @@ public class SecuredService extends AbstractVerticle {
                     .putHeader("content-type", "application/json")
                     .end(JsonComposer.toJsonString(new StringList(Currency.availableCurrencies.map[currencyCode].toList)))
             ]
-            
+
             // define a custom login service
             get("/login").handler [                                             // create a new JWT token
                 response.putHeader(HttpHeaders.CONTENT_TYPE, "text/plain");
@@ -55,7 +55,7 @@ public class SecuredService extends AbstractVerticle {
                     put("tenantId", "ACME")
                     put("userId",   "john")
                 ], new JWTOptions => [
-                    expiresInMinutes = 10L 
+                    expiresInMinutes = 10L
                 ]));
             ]
         ]
@@ -68,7 +68,7 @@ public class SecuredService extends AbstractVerticle {
 
     def static void main(String[] args) throws Exception {
         LOGGER.info('''Secured server starting on port «port», use /login to authenticate, /api/currencies to test...''')
-        
+
         Vertx.vertx.deployVerticle(new SecuredService)
 
         new Thread([Thread.sleep(60000000)]).start // wait in some other thread

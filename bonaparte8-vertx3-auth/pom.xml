@@ -5,13 +5,13 @@
     <parent>
         <groupId>de.jpaw</groupId>
         <artifactId>bonaparte8-base</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.3</version>
         <relativePath>../bonaparte8-base/pom.xml</relativePath>
     </parent>
 
     <artifactId>bonaparte8-vertx3-auth</artifactId>
     <packaging>jar</packaging>
-    
+
     <description>BONAPARTE authentication handler for vert.x 3</description>
 
     <dependencies>
@@ -43,7 +43,7 @@
             <artifactId>org.eclipse.xtend.lib</artifactId>
             <version>${xtend.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -122,7 +122,7 @@
                 </executions>
             </plugin>
 
-            
+
         </plugins>
     </build>
 </project>
