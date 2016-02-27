@@ -5,7 +5,7 @@
     <parent>
         <groupId>de.jpaw</groupId>
         <artifactId>jpaw-se-parent</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.0</version>
         <relativePath/>
     </parent>
 
@@ -20,21 +20,21 @@
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>jpaw-bom</artifactId>
-                <version>1.5.5-SNAPSHOT</version>
+                <version>1.5.4</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>jpaw8-bom</artifactId>
-                <version>1.4.2-SNAPSHOT</version>
+                <version>1.4.1</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>bonaparte-bom</artifactId>
-                <version>4.0.9-SNAPSHOT</version>
+                <version>4.0.9</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -47,7 +47,7 @@
         <xtend.version>2.9.1</xtend.version>            <!-- UPTODATE 2015-12-31 -->
 
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
-        <bonaparte-plugin.version>4.0.9-SNAPSHOT</bonaparte-plugin.version>
+        <bonaparte-plugin.version>4.0.9</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
         <vertx3.version>3.2.1</vertx3.version>
         <aws.version>1.10.41</aws.version>
