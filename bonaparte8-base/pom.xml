@@ -43,9 +43,6 @@
 
 
     <properties>
-        <!-- override definition in jpaw-se-parent -->
-        <xtend.version>2.9.2</xtend.version>            <!-- UPTODATE 2016-03-04 -->
-
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
         <bonaparte-plugin.version>4.0.12-SNAPSHOT</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
