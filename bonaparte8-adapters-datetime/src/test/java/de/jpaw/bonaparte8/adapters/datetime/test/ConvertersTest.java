@@ -1,12 +1,14 @@
 package de.jpaw.bonaparte8.adapters.datetime.test;
 
-import org.joda.time.Instant;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.LocalTime;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import de.jpaw.bonaparte.util.DayTime;
 import de.jpaw.bonaparte8.adapters.datetime.InstantAdapterMilliSec;
 import de.jpaw.bonaparte8.adapters.datetime.InstantAdapterSecond;
 import de.jpaw.bonaparte8.adapters.datetime.LocalDateAdapter;
@@ -23,7 +25,7 @@ public class ConvertersTest {
     @Test
     public void testJava8ConversionInstant() throws Exception {
 
-        Instant currentInstant = new Instant();
+        Instant currentInstant = Instant.now();
         Instant newInstant = InstantAdapterMilliSec.marshal(InstantAdapterMilliSec.unmarshal(currentInstant));
 
         Assert.assertEquals(currentInstant.equals(newInstant), true);
@@ -32,8 +34,8 @@ public class ConvertersTest {
         newInstant = InstantAdapterSecond.marshal(InstantAdapterSecond.unmarshal(currentInstant));
 
         // evaluation of the result
-        long originalMillis = currentInstant.getMillis();
-        long truncatedMillis = newInstant.getMillis();
+        long originalMillis = DayTime.millisOfEpoch(currentInstant);
+        long truncatedMillis = DayTime.millisOfEpoch(newInstant);
 
         Assert.assertEquals(truncatedMillis % 1000, 0);
         Assert.assertEquals(truncatedMillis <= originalMillis, true);
@@ -43,7 +45,7 @@ public class ConvertersTest {
     @Test
     public void testJava8ConversionLocalDateTime() throws Exception {
 
-        LocalDateTime currentLocalDateTime = new LocalDateTime();
+        LocalDateTime currentLocalDateTime = LocalDateTime.now();
         LocalDateTime newLocalDateTime = LocalDateTimeAdapterMilliSec.marshal(LocalDateTimeAdapterMilliSec.unmarshal(currentLocalDateTime));
 
         Assert.assertEquals(currentLocalDateTime.equals(newLocalDateTime), true);
@@ -52,8 +54,8 @@ public class ConvertersTest {
         newLocalDateTime = LocalDateTimeAdapterSecond.marshal(LocalDateTimeAdapterSecond.unmarshal(currentLocalDateTime));
 
         // evaluation of the result
-        long originalMillis = currentLocalDateTime.getMillisOfDay();
-        long truncatedMillis = newLocalDateTime.getMillisOfDay();
+        long originalMillis = DayTime.timeAsInt(currentLocalDateTime) + 1000_000_000L * DayTime.dayAsInt(currentLocalDateTime);
+        long truncatedMillis = DayTime.timeAsInt(newLocalDateTime) + 1000_000_000L * DayTime.dayAsInt(newLocalDateTime);
 
         Assert.assertEquals(truncatedMillis % 1000, 0);
         Assert.assertEquals(truncatedMillis <= originalMillis, true);
@@ -63,7 +65,7 @@ public class ConvertersTest {
     @Test
     public void testJava8ConversionLocalTime() throws Exception {
 
-        LocalTime currentLocalTime = new LocalTime();
+        LocalTime currentLocalTime = LocalTime.now();
         LocalTime newLocalTime = LocalTimeAdapterMilliSec.marshal(LocalTimeAdapterMilliSec.unmarshal(currentLocalTime));
 
         Assert.assertEquals(currentLocalTime.equals(newLocalTime), true);
@@ -72,8 +74,8 @@ public class ConvertersTest {
         newLocalTime = LocalTimeAdapterSecond.marshal(LocalTimeAdapterSecond.unmarshal(currentLocalTime));
 
         // evaluation of the result
-        long originalMillis = currentLocalTime.getMillisOfDay();
-        long truncatedMillis = newLocalTime.getMillisOfDay();
+        long originalMillis = currentLocalTime.toNanoOfDay() / 1000000L;
+        long truncatedMillis = newLocalTime.toNanoOfDay() / 1000000L;
 
         Assert.assertEquals(truncatedMillis % 1000, 0);
         Assert.assertEquals(truncatedMillis <= originalMillis, true);
@@ -83,7 +85,7 @@ public class ConvertersTest {
     @Test
     public void testJava8ConversionDay() throws Exception {
 
-        LocalDate someDay = new LocalDate(1958, 7, 30);
+        LocalDate someDay = LocalDate.of(1958, 7, 30);
         LocalDate newDay = LocalDateAdapter.marshal(LocalDateAdapter.unmarshal(someDay));
 
         Assert.assertEquals(someDay.equals(newDay), true);

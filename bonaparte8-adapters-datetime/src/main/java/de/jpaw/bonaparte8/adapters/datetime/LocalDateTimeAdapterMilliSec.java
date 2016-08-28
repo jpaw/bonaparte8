@@ -8,13 +8,13 @@ import org.joda.time.LocalDateTime;
 /** Converts between Java 8 LocalDateTime and Joda LocalDateTime, truncating to milliseconds. */
 public class LocalDateTimeAdapterMilliSec {
 
-    public static LocalDateTime marshal(java.time.LocalDateTime obj) {
+    public static LocalDateTime unmarshal(java.time.LocalDateTime obj) {
         long nanoOfSecond = obj.getNano();
         long secondOfEpoch = obj.toEpochSecond(ZoneOffset.UTC);
         return new LocalDateTime(secondOfEpoch * 1000L + (nanoOfSecond / 1_000_000L), DateTimeZone.UTC);
     }
 
-    public static java.time.LocalDateTime unmarshal(LocalDateTime data) {
+    public static java.time.LocalDateTime marshal(LocalDateTime data) {
         if (data == null)
             return null;
         // this is ugly:

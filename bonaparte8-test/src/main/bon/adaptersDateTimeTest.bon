@@ -8,7 +8,7 @@ import adapters.datetime.*
 
 package adapters.datetime.test {
 
-    class UsingJava8Types {
+    class UsingJodaTimeTypes {
         required (InstantAd3)               myJava8Instant;
         optional (LocalDateAd)              myJava8Day;
     }

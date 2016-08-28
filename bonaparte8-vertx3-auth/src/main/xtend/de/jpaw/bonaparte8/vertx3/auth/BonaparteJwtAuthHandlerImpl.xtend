@@ -2,6 +2,7 @@ package de.jpaw.bonaparte8.vertx3.auth
 
 import de.jpaw.bonaparte.api.auth.JwtConverter
 import de.jpaw.bonaparte.core.MapParser
+import de.jpaw.bonaparte.core.MimeTypes
 import de.jpaw.bonaparte.pojos.api.auth.JwtInfo
 import de.jpaw.bonaparte.pojos.api.auth.JwtPayload
 import io.vertx.core.Handler
@@ -10,15 +11,15 @@ import io.vertx.ext.auth.jwt.impl.JWT
 import io.vertx.ext.web.RoutingContext
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.InputStream
 import java.security.KeyStore
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import static io.vertx.core.http.HttpHeaders.*
-import de.jpaw.bonaparte8.vertx3.auth.BonaparteVertxUser
-import java.io.InputStream
-import java.io.FileNotFoundException
-import de.jpaw.bonaparte.core.MimeTypes
 
 // BonaparteJwtAuthHandler does not implement an AuthHandler, because that one requires a SessionHandler!
 class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
@@ -88,13 +89,13 @@ class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
                     map.put(MimeTypes.JSON_FIELD_PQON, PAYLOAD_PQON);
 
                 val info = JwtConverter.parseJwtInfo(MapParser.asBonaPortable(map, JwtPayload.meta$$this) as JwtPayload)
-                val now = System.currentTimeMillis
+                val now = Instant.now
                 if (info.issuedAt !== null && info.issuedAt.isAfter(now)) {
-                    reasonOfFailureMsg = '''JWT token pretends to be issued in the future by «info.issuedAt.millis - now» ms'''
+                    reasonOfFailureMsg = '''JWT token pretends to be issued in the future by «now.until(info.issuedAt, ChronoUnit.SECONDS)» s'''
                 } else if (info.notBefore !== null && info.notBefore.isAfter(now)) {
                     reasonOfFailureMsg = '''JWT token not yet valid'''
                 } else if (info.expiresAt !== null && info.expiresAt.isBefore(now)) {
-                    reasonOfFailureMsg = '''JWT token has expired by «now - info.expiresAt.millis» ms'''
+                    reasonOfFailureMsg = '''JWT token has expired by «info.expiresAt.until(now, ChronoUnit.SECONDS)» s'''
                 } else if (info.userId === null || info.userRef === null) {
                     reasonOfFailureMsg = '''no user ID / ref specified'''
                 } else {

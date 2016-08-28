@@ -8,11 +8,11 @@ import org.joda.time.LocalDateTime;
 /** Converts between Java 8 LocalDateTime and Joda LocalDateTime, truncating to seconds. */
 public class LocalDateTimeAdapterSecond {
 
-    public static LocalDateTime marshal(java.time.LocalDateTime obj) {
+    public static LocalDateTime unmarshal(java.time.LocalDateTime obj) {
         return new LocalDateTime(obj.toEpochSecond(ZoneOffset.UTC) * 1000, DateTimeZone.UTC);
     }
 
-    public static java.time.LocalDateTime unmarshal(LocalDateTime data) {
+    public static java.time.LocalDateTime marshal(LocalDateTime data) {
         if (data == null)
             return null;
         // this is ugly:

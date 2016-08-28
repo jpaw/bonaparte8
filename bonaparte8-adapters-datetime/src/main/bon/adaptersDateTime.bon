@@ -1,6 +1,6 @@
-import java.^time.*
+import org.joda.^time.*
 
-/** Jav 8 date / time type adapters.
+/** Joda date / time type adapters.
  *
  * see here: http://blog.joda.org/2014/11/converting-from-joda-time-to-javatime.html
  */
