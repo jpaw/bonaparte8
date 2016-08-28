@@ -9,7 +9,7 @@ import de.jpaw.bonaparte.pojos.adapters.datetime.test.UsingJodaTimeTypes;
 import de.jpaw.bonaparte.testrunner.MultiTestRunner;
 import de.jpaw.util.StringSerializer;
 
-public class Java8TypesTest {
+public class JodaAdapterTest {
 
     @Test
     public void testJodaTimeConversion() throws Exception {
