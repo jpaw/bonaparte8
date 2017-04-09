@@ -5,7 +5,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
-import org.testng.annotations.Test
+import org.junit.Test
 
 class JwtTestRemote {
     static private final String BASE_URL = "http://localhost:8080"

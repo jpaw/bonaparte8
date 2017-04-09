@@ -4,8 +4,8 @@ import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import de.jpaw.bonaparte8.adapters.datetime.InstantAdapterMilliSec;
 import de.jpaw.bonaparte8.adapters.datetime.InstantAdapterSecond;
@@ -26,7 +26,7 @@ public class ConvertersTest {
         Instant currentInstant = new Instant();
         Instant newInstant = InstantAdapterMilliSec.marshal(InstantAdapterMilliSec.unmarshal(currentInstant));
 
-        Assert.assertEquals(currentInstant.equals(newInstant), true);
+        Assert.assertTrue(currentInstant.equals(newInstant));
 
         // now do the same with possible truncation
         newInstant = InstantAdapterSecond.marshal(InstantAdapterSecond.unmarshal(currentInstant));
@@ -35,9 +35,9 @@ public class ConvertersTest {
         long originalMillis = currentInstant.getMillis();
         long truncatedMillis = newInstant.getMillis();
 
-        Assert.assertEquals(truncatedMillis % 1000, 0);
-        Assert.assertEquals(truncatedMillis <= originalMillis, true);
-        Assert.assertEquals((truncatedMillis + 999) >= originalMillis, true);
+        Assert.assertEquals(0, truncatedMillis % 1000);
+        Assert.assertTrue(truncatedMillis <= originalMillis);
+        Assert.assertTrue((truncatedMillis + 999) >= originalMillis);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ConvertersTest {
         LocalDateTime currentLocalDateTime = new LocalDateTime();
         LocalDateTime newLocalDateTime = LocalDateTimeAdapterMilliSec.marshal(LocalDateTimeAdapterMilliSec.unmarshal(currentLocalDateTime));
 
-        Assert.assertEquals(currentLocalDateTime.equals(newLocalDateTime), true);
+        Assert.assertTrue(currentLocalDateTime.equals(newLocalDateTime));
 
         // now do the same with possible truncation
         newLocalDateTime = LocalDateTimeAdapterSecond.marshal(LocalDateTimeAdapterSecond.unmarshal(currentLocalDateTime));
@@ -55,9 +55,9 @@ public class ConvertersTest {
         long originalMillis = currentLocalDateTime.getMillisOfDay();
         long truncatedMillis = newLocalDateTime.getMillisOfDay();
 
-        Assert.assertEquals(truncatedMillis % 1000, 0);
-        Assert.assertEquals(truncatedMillis <= originalMillis, true);
-        Assert.assertEquals((truncatedMillis + 999) >= originalMillis, true);
+        Assert.assertEquals(0, truncatedMillis % 1000);
+        Assert.assertTrue(truncatedMillis <= originalMillis);
+        Assert.assertTrue((truncatedMillis + 999) >= originalMillis);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class ConvertersTest {
         LocalTime currentLocalTime = new LocalTime();
         LocalTime newLocalTime = LocalTimeAdapterMilliSec.marshal(LocalTimeAdapterMilliSec.unmarshal(currentLocalTime));
 
-        Assert.assertEquals(currentLocalTime.equals(newLocalTime), true);
+        Assert.assertTrue(currentLocalTime.equals(newLocalTime));
 
         // now do the same with possible truncation
         newLocalTime = LocalTimeAdapterSecond.marshal(LocalTimeAdapterSecond.unmarshal(currentLocalTime));
@@ -75,9 +75,9 @@ public class ConvertersTest {
         long originalMillis = currentLocalTime.getMillisOfDay();
         long truncatedMillis = newLocalTime.getMillisOfDay();
 
-        Assert.assertEquals(truncatedMillis % 1000, 0);
-        Assert.assertEquals(truncatedMillis <= originalMillis, true);
-        Assert.assertEquals((truncatedMillis + 999) >= originalMillis, true);
+        Assert.assertEquals(0, truncatedMillis % 1000);
+        Assert.assertTrue(truncatedMillis <= originalMillis);
+        Assert.assertTrue((truncatedMillis + 999) >= originalMillis);
     }
 
     @Test
@@ -86,6 +86,6 @@ public class ConvertersTest {
         LocalDate someDay = new LocalDate(1958, 7, 30);
         LocalDate newDay = LocalDateAdapter.marshal(LocalDateAdapter.unmarshal(someDay));
 
-        Assert.assertEquals(someDay.equals(newDay), true);
+        Assert.assertTrue(someDay.equals(newDay));
     }
 }
