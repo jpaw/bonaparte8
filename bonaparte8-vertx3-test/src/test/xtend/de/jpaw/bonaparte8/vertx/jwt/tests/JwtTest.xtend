@@ -1,7 +1,7 @@
 package de.jpaw.bonaparte8.vertx.jwt.tests
 
 import java.util.Base64
-import org.testng.annotations.Test
+import org.junit.Test
 
 import static extension de.jpaw.bonaparte.api.auth.JwtConverter.*
 
