@@ -145,7 +145,7 @@ package api.alexa {
         optional (AlexaOutputSpeech)                outputSpeech;
         optional (AlexaCard)                        card;
         optional (AlexaReprompt)                    reprompt;
-        required (AlexaDirective) List<>            directives;
+        required (AlexaDirective...) List<>         directives;
         optional Boolean                            shouldEndSession;
     }
 
@@ -162,9 +162,9 @@ package api.alexa {
     }
 
 
-    final class AlexaDirective {
+    class AlexaDirective {
         required alexaId                            ^type;
-        // TODO: more stuff
+        // to be extended
     }
 
 
