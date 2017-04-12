@@ -1,20 +1,20 @@
 /**
  * Bonaparte model to make Alexa message elements available to Java.
  * See https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interface-reference for documentation
- * 
+ *
  * AudioPlayer requests are not yet implemented (https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/custom-audioplayer-interface-reference#requests)
  */
 package api.alexa {
     default private unsigned trim noControlChars;
 
     type alexaId                is Unicode(255);
-    
+
     enum AlexaRequestType {
         LAUNCH_REQUEST          = "LaunchRequest",
         INTENT_REQUEST          = "IntentRequest",
         SESSION_ENDED_REQUEST   = "SessionEndedRequest"
     }
-    
+
     enum SpeechType {
         PLAIN_TEXT               = "PlainText",
         SSML                     = "SSML"
@@ -38,22 +38,22 @@ package api.alexa {
 
 
 
-    final class AlexaSlot {
+    final class AlexaSlotIn {
         required alexaId                            name;
-        required alexaId                            ^type;
-        
+        required Unicode(2000)                      value;
+
     }
 
     final class AlexaIntentIn {
         required alexaId                            name;
-        required (AlexaSlot) Map<String>            slots;
+        required (AlexaSlotIn) Map<String>          slots;
     }
-    
+
 
     final class AlexaApplicationIn {
         required alexaId                            applicationId;
     }
-    
+
     final class AlexaUser {
         required alexaId                            userId;
         optional Json                               permissions;
@@ -70,18 +70,26 @@ package api.alexa {
 
     final class AlexaRequestBody {
         required alexaId                            version;
-        optional (AlexaSessionIn)                   session; 
+        optional (AlexaSessionIn)                   session;
         optional (AlexaContext)                     context;
         required Json                               request; // various requests, type is determined dynamically
     }
-  
+
+    // request with specific request
+    final class AlexaRequestBodyIn {
+        required alexaId                            version;
+        optional (AlexaSessionIn)                   session;
+        optional (AlexaContext)                     context;
+        required (AlexaRequest)                     request; // various requests, type is determined dynamically
+    }
+
     final class AlexaContextSystem {
         required (AlexaApplicationIn)               application;
         optional (AlexaUser)                        user;
         optional (AlexaDevice)                      device;
         optional alexaId                            apiEndpoint;
      }
-  
+
     final class AlexaDevice {
         required alexaId                            deviceId;
         optional Json                               supportedInterfaces;
@@ -97,7 +105,7 @@ package api.alexa {
         optional (AlexaContextSystem)               system      is "System";        // uses caps as first character
         optional (AlexaAudioPlayer)                 audioPlayer is "AudioPlayer";   // uses caps as first character
     }
-    
+
     abstract class AlexaAbstractRequest {
         required enum AlexaRequestType             ^type;
         required alexaId                           requestId;
@@ -105,13 +113,17 @@ package api.alexa {
         optional Ascii(32)                         locale;
     }
 
+    final class AlexaRequest extends AlexaAbstractRequest {
+        optional (AlexaIntentIn)                   intent;
+    }
+
     // login without specific action: just create the session
     final class AlexaLaunchRequest extends AlexaAbstractRequest {}
-        
+
     final class AlexaIntentRequest extends AlexaAbstractRequest {
         required (AlexaIntentIn)                   intent;
     }
-    
+
     final class AlexaError {
         required alexaId                            ^type;
         optional Unicode(2000)                     message;
@@ -124,7 +136,7 @@ package api.alexa {
 
 
 
-    
+
     final class AlexaImage {
         optional Unicode(2000)                      smallImageUrl;
         optional Unicode(2000)                      largeImageUrl;
@@ -134,13 +146,13 @@ package api.alexa {
         optional Json                               sessionAttributes;
         optional (AlexaResponse)                    response;             // null for AlexaSessionEndedRequest, else non null
     }
-    
+
     final class AlexaOutputSpeech {
         required enum SpeechType                    ^type;
         optional Unicode(8000) allowControlChars    text;
         optional Unicode(8000) allowControlChars    ssml;
     }
-    
+
     final class AlexaResponse {
         optional (AlexaOutputSpeech)                outputSpeech;
         optional (AlexaCard)                        card;
@@ -173,12 +185,18 @@ package api.alexa {
     final class AlexaIntentSchema {
         required (AlexaIntent) List<>               intents;
     }
-    
+
+    final class AlexaSlot {
+        required alexaId                            name;
+        required alexaId                            ^type;
+
+    }
+
     final class AlexaIntent {
         required alexaId                            intent;
         required (AlexaSlot) List<>                 slots;   // doc says List but it is a map
     }
-    
+
     final class AlexaPostalCodeResponse {
         optional Uppercase(2)                       countryCode;  // ISO 3166 countryCode
         optional alexaId                            postalCode;

@@ -25,13 +25,13 @@ public class AlexaTest {
         AlexaOutputSpeech os = new AlexaOutputSpeech();
         os.setType(SpeechType.PLAIN_TEXT);
         os.setText("Hello world");
-        
+
         String out = JsonComposer.toJsonStringNoPQON(os);
-        
+
         System.out.println(out);
         Assert.assertEquals(JSON1, out);
     }
-    
+
     // validates metaName is used for output
     @Test
     public void serialize2() throws Exception {
@@ -41,21 +41,21 @@ public class AlexaTest {
         si.setAttributes(new HashMap<String, Object>());
 
         String out = JsonComposer.toJsonStringNoPQON(si);
-        
+
         System.out.println(out);
         Assert.assertEquals(JSON2, out);
     }
-    
+
     @Test
     public void deserialize() throws Exception {
         Map<String, Object> map = new JsonParser(JSON1, false).parseObject();
         AlexaOutputSpeech os = new AlexaOutputSpeech();
         MapParser.populateFrom(os, map);
-        
+
         System.out.println(ToStringHelper.toStringML(os));
         Assert.assertTrue(SpeechType.PLAIN_TEXT == os.getType());
     }
-    
+
     @Test
     public void deserialize2() throws Exception {
         // BonaPortableFactory.addToPackagePrefixMap("alexa.api", "addToPackagePrefixMap");
