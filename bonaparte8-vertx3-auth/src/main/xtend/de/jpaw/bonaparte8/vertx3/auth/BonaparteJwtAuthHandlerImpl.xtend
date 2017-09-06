@@ -6,7 +6,7 @@ import de.jpaw.bonaparte.pojos.api.auth.JwtInfo
 import de.jpaw.bonaparte.pojos.api.auth.JwtPayload
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonObject
-import io.vertx.ext.auth.jwt.JWT
+import io.vertx.ext.jwt.JWT
 import io.vertx.ext.web.RoutingContext
 import java.io.File
 import java.io.FileInputStream
