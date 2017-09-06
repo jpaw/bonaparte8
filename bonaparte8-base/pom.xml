@@ -34,7 +34,7 @@
             <dependency>
                 <groupId>de.jpaw</groupId>
                 <artifactId>bonaparte-bom</artifactId>
-                <version>4.4.4</version>
+                <version>4.4.10</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -48,9 +48,9 @@
         <logback.version>1.2.3</logback.version>        <!-- http://logback.qos.ch/ -->
 
         <!-- define revisions of other jpaw.de projects, not covered by plugin management -->
-        <bonaparte-plugin.version>4.4.4</bonaparte-plugin.version>
+        <bonaparte-plugin.version>4.4.7</bonaparte-plugin.version>
         <bonaparte-plugin-commons-lang.version>2.6</bonaparte-plugin-commons-lang.version>      <!-- currently needed by the plugins -->
-        <vertx3.version>3.4.1</vertx3.version>
+        <vertx3.version>3.4.2</vertx3.version>
         <aws.version>1.11.118</aws.version>
     </properties>
 
