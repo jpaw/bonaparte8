@@ -221,10 +221,9 @@ public class AnalyzerWorkerFactory implements BatchWriterFactory<String> {
 
     private Range numFields = null;
     private Statistics [] columnData = null;
-    private Integer mergeLock = new Integer(876511);
 
     private void merge(Range numFields, Statistics [] columnData) {
-        synchronized(mergeLock) {
+        synchronized (this) {
             if (this.numFields == null) {
                 // assignment
                 LOG.info("initial merge");
