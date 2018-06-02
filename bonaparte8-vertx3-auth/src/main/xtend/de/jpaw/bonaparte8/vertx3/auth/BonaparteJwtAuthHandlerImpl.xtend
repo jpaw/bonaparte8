@@ -19,6 +19,7 @@ import de.jpaw.bonaparte8.vertx3.auth.BonaparteVertxUser
 import java.io.InputStream
 import java.io.FileNotFoundException
 import de.jpaw.bonaparte.core.MimeTypes
+import io.vertx.ext.jwt.JWTOptions
 
 // BonaparteJwtAuthHandler does not implement an AuthHandler, because that one requires a SessionHandler!
 class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
@@ -42,12 +43,12 @@ class BonaparteJwtAuthHandlerImpl implements Handler<RoutingContext> {
         }
     }
 
-    def public String sign(JwtInfo claims, Long expiresInSeconds, String algorithm) {
-        val options = new JsonObject
+    def public String sign(JwtInfo claims, Integer expiresInSeconds, String algorithm) {
+        val options = new JWTOptions
         if (expiresInSeconds !== null)
-            options.put("expiresInSeconds", expiresInSeconds)
+            options.expiresInSeconds = expiresInSeconds
         if (algorithm !== null)
-            options.put("algorithm", algorithm)
+            options.algorithm = algorithm
         val jwtMap = JwtConverter.asMap(claims);
         return jwt.sign(new JsonObject(jwtMap), options)
     }

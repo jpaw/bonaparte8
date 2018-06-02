@@ -7,12 +7,12 @@ import io.vertx.core.Vertx
 import io.vertx.core.http.HttpHeaders
 import io.vertx.core.json.JsonObject
 import io.vertx.ext.auth.jwt.JWTAuth
-import io.vertx.ext.auth.jwt.JWTOptions
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.JWTAuthHandler
 import java.util.Currency
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import io.vertx.ext.jwt.JWTOptions
 
 // 1) copy mykeystore.jceks to /tmp (or run mkstore.sh)
 // 2) run this main class
@@ -55,7 +55,7 @@ public class SecuredService extends AbstractVerticle {
                     put("tenantId", "ACME")
                     put("userId",   "john")
                 ], new JWTOptions => [
-                    expiresInMinutes = 10L
+                    expiresInMinutes = 10
                 ]));
             ]
         ]

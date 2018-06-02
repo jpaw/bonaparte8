@@ -56,7 +56,7 @@ public class BonaparteVertxAuthTestServer extends AbstractVerticle {
                         tenantId    = "ACME"
                         userId      =  "john"
                         userRef     = 4711L
-                    ], 600L, null));
+                    ], 600, null));
             ]
             // protect the API
             route("/rpc").handler(authHandler);
